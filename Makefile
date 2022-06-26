@@ -22,6 +22,8 @@ clean:
 
 fclean:		clean
 			${RM} ${NAME}
+			${RM} simple0.txt
+			${RM} gnl_test.out
 
 re:			fclean all
 
