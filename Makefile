@@ -7,9 +7,9 @@ NAME	= libft.a
 CC		= gcc
 RM		= rm -f
 
-CFLAGS	= -g -Wall -Werror -Wextra -D BUFFER_SIZE=42
+CFLAGS	= -Wall -Werror -Wextra -D BUFFER_SIZE=42
 
-%.o:		${SRCS}
+%.o:		${SRCS}%.c
 			${CC} ${CFLAGS} -c $< -o $@
 
 ${NAME}:	${OBJS}
@@ -18,7 +18,7 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 
 clean:
-			${RM} ${OBJS} ${BOBJS} bonus
+			${RM} ${OBJS} ${BOBJS}
 
 fclean:		clean
 			${RM} ${NAME}
@@ -28,5 +28,4 @@ re:			fclean all
 .PHONY:		all clean fclean re
 
 test:		${NAME}
-			g++ -L./ gnl_test.cpp -lft -lgtest -lpthread -o gnl_test.out
-			./gnl_test.out && rm gnl_test.out
+			gcc -L./ test_src/get_next_line.c -lcriterion -lpthread -lft -o gnl_test.out
