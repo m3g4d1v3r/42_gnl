@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:28:54 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/26 19:32:59 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:34:10 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_next_line(int fd)
 	size_t			bytes;
 	size_t			total_bytes;
 
+	outlst = NULLPTR;
 	total_bytes = 0;
 	bytes = parse_for_newline(&fdata);
 	total_bytes += bytes;

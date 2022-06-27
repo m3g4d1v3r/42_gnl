@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:29:24 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/26 19:34:54 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:41:18 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_bool
 
 typedef struct s_file
 {
+	int		fd;
 	char	buf[BUFFER_SIZE];
 	t_bool	newline_flg;
 	size_t	idx;

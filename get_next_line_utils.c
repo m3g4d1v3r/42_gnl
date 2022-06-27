@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:04:31 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/26 19:35:25 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/26 21:40:27 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ void	lstadd_front(t_list **lst, t_list *new)
 
 void	cpystr(char *dst, const char *src, size_t dstsize)
 {
-	size_t	idx;
+	size_t	src_i;
 
-	idx = 0;
-	while (idx++ < dstsize)
+	src_i = 0;
+	(void) dstsize;
+	while (*src != '\0')
 	{
 		*dst++ = *src++;
+		src_i++;
 	}
-	*dst = '\0';
+	if (src_i < BUFFER_SIZE)
+		*dst = '\0';
 }
 
 int	parse_for_newline(t_file *fdata)
@@ -78,7 +81,7 @@ char	*lstjoin(t_list **outlst, size_t total_bytes)
 	t_list	*next;
 	char	*output_str;
 
-	if (outlst == NULLPTR)
+	if (*outlst == NULLPTR || total_bytes == 0)
 		return (NULLPTR);
 	prev = NULLPTR;
 	curr = *outlst;
@@ -89,13 +92,16 @@ char	*lstjoin(t_list **outlst, size_t total_bytes)
 		prev = curr;
 		curr = next;
 	}
-	output_str = (char *) malloc(sizeof(char) * total_bytes);
+	curr->next = prev;
+	output_str = (char *) malloc(sizeof(char) * (total_bytes + 1));
 	while (curr != NULLPTR)
 	{
 		next = curr->next;
 		cpystr(output_str, curr->substr, curr->bytes);
+		output_str += curr->bytes;
 		free(curr);
 		curr = next;
 	}
-	return (output_str);
+	*output_str = '\0';
+	return (output_str - total_bytes);
 }
