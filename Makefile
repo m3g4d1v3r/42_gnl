@@ -23,6 +23,7 @@ clean:
 fclean:		clean
 			${RM} ${NAME}
 			${RM} simple0.txt
+			${RM} simple1.txt
 			${RM} gnl_test.out
 
 re:			fclean all
