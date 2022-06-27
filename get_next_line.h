@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:29:24 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/26 21:41:18 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/27 20:50:11 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct s_file
 	int		fd;
 	char	buf[BUFFER_SIZE];
 	t_bool	newline_flg;
+	t_bool	eof;
 	size_t	idx;
+	size_t	read_bytes;
 }				t_file;
 
 typedef struct s_list
