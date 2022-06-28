@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:29:24 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/27 20:50:11 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:48:33 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_file
 	int		fd;
 	char	buf[BUFFER_SIZE];
 	t_bool	newline_flg;
-	t_bool	eof;
+	t_bool	no_boot;
 	size_t	idx;
 	size_t	read_bytes;
 }				t_file;
@@ -47,6 +47,6 @@ char	*get_next_line(int fd);
 
 int		parse_for_newline(t_file *fdata);
 void	allocate_and_cpy(t_list **outlst, size_t bytes, t_file *fdata);
-char	*lstjoin(t_list **outlst, size_t total_bytes);
+char	*lstjoin(t_list *outlst, size_t total_bytes);
 
 #endif

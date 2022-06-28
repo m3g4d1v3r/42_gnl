@@ -6,7 +6,7 @@
 /*   By: msubtil- <msubtil-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 12:04:31 by msubtil-          #+#    #+#             */
-/*   Updated: 2022/06/27 20:43:45 by msubtil-         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:48:15 by msubtil-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cpystr(char *dst, const char *src, size_t dstsize)
 		*dst++ = *src++;
 		src_i++;
 	}
-	if (src_i < BUFFER_SIZE)
+	if (src_i < dstsize)
 	{
 		*dst = '\0';
 	}
@@ -48,14 +48,10 @@ int	parse_for_newline(t_file *fdata)
 	byte_count = 0;
 	if (fdata->newline_flg == TRUE)
 		fdata->newline_flg = FALSE;
-	while (fdata->eof == FALSE && fdata->idx < fdata->read_bytes)
+	while (fdata->idx < fdata->read_bytes)
 	{
 		if (fdata->buf[fdata->idx] == '\0')
-		{
-			if (fdata->idx > 0)
-				fdata->eof = TRUE;
 			break ;
-		}
 		byte_count++;
 		if (fdata->buf[fdata->idx++] == '\n')
 		{
@@ -79,17 +75,15 @@ void	allocate_and_cpy(t_list **outlst, size_t bytes, t_file *fdata)
 	lstadd_front(outlst, new_node);
 }
 
-char	*lstjoin(t_list **outlst, size_t total_bytes)
+char	*lstjoin(t_list *curr, size_t total_bytes)
 {
 	t_list	*prev;
-	t_list	*curr;
 	t_list	*next;
 	char	*output_str;
 
-	if (*outlst == NULLPTR || total_bytes == 0)
+	if (curr == NULLPTR || total_bytes == 0)
 		return (NULLPTR);
 	prev = NULLPTR;
-	curr = *outlst;
 	while (curr != NULLPTR)
 	{
 		next = curr->next;
@@ -97,15 +91,14 @@ char	*lstjoin(t_list **outlst, size_t total_bytes)
 		prev = curr;
 		curr = next;
 	}
-	curr = prev;
 	output_str = (char *) malloc(sizeof(char) * (total_bytes + 1));
-	while (curr != NULLPTR)
+	while (prev != NULLPTR)
 	{
-		next = curr->next;
-		cpystr(output_str, curr->substr, curr->bytes);
-		output_str += curr->bytes;
-		free(curr);
-		curr = next;
+		next = prev->next;
+		cpystr(output_str, prev->substr, prev->bytes);
+		output_str += prev->bytes;
+		free(prev);
+		prev = next;
 	}
 	*output_str = '\0';
 	return (output_str - total_bytes);
